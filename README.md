@@ -132,14 +132,14 @@ By setting up a secure and accessible landing page, this project highlights key 
   ```
 
 **GitHub Repository:**
-- **Repository URL:** https://github.com/AltSchool-Project2
+- **Repository URL:** https://github.com/mosesekerin/AltSchool-Project2/
 - **Steps:**
   - Set up a new repository on GitHub.
   - Generated an SSH key pair on the EC2 instance.
   - Added the public key to the GitHub account for secure access.
   - Pushed the local repository to GitHub using:
     ```bash
-     git remote add origin git@github.com:mosesekerin/AltSchool-Project2.git
+    git remote add origin git@github.com:mosesekerin/AltSchool-Project2.git
     git push -u origin main
     ```
 
