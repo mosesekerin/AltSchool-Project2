@@ -1,226 +1,171 @@
-
-Second Semester Project: Deploying a Multi-Page HTML and CSS Website on AWS EC2 Instance
-
-This documentation outlines the step-by-step process followed to provision a Linux server, deploy a multi-page website with HTML and CSS files, and configure networking to make the project accessible. Additionally, it includes the integration of the project into a GitHub repository for version control.
-
-
-Project Overview
-
-The objective of this project was to:
-
-1. Create a multi-page website using HTML and CSS.
-
-
-2. Set up a Linux server on AWS EC2.
-
-
-3. Transfer the project files securely from a local server to the remote EC2 instance.
-
-
-4. Configure the EC2 instance to host the website and make it accessible via a public IP.
-
-
-5. Configure HTTPS using a testing SSL certificate.
-
-
-6. Push the project to GitHub for version control and future enhancements.
-
-
-
-
-
-
-
-Steps Undertaken
-
-1. Local Development
-
-Code Editor: Visual Studio Code (VS Code) was used for local development.
-
-Files Created:
-
-HTML Files:
-
-index.html (Landing Page)
-
-about.html (About Me Page)
-
-project.html (About the Project Page)
-
-
-CSS Files:
-
-style.css (for index.html)
-
-about.css (for about.html)
-
-project.css (for project.html)
-
-
-
-Each HTML file was linked to its respective CSS file for styling.
-
-
-2. Setting Up the Local Server
-
-Environment: Vagrant was used to create and manage the local development server.
-
-Directory Structure:
-
-Files were placed in the designated directory on the local server for testing.
-
-
-
-3. Transferring Files to AWS EC2 Instance
-
-Tool Used: Secure Copy Protocol (SCP) was utilized to transfer the files securely.
-
-Command Executed:
-
-scp -i <key.pem> -r /path/to/local/project ubuntu@<EC2_PUBLIC_IP>:/var/www/html/second-semester-project/
-
-Files Location on EC2: /var/www/html/second-semester-project/
-
-
-4. Configuring the Remote Server
-
-Server Environment: AWS EC2 instance running Ubuntu 20.04.
-
-Web Server Installed: Apache HTTP Server.
-
-Installation Command:
-
-sudo apt update && sudo apt install apache2 -y
-
-Default Directory for Files: /var/www/html/
-
-
-Networking Configuration:
-
-Allowed inbound HTTP traffic (port 80) using the AWS Management Console.
-
-Verified public IP accessibility:
-
-http://<EC2_PUBLIC_IP>/second-semester-project/
-
-
-
-5. Configuring HTTPS with Testing SSL
-
-Objective: Configure HTTPS using a testing SSL certificate due to financial constraints and the absence of a domain name.
-
-Challenges:
-
-Free SSL certificates such as Let’s Encrypt require a valid domain name for installation.
-
-Financial constraints made it impossible to purchase a domain or premium SSL certificate.
-
-
-Solution:
-
-Used a testing SSL certificate.
-
-Configured the server to make requests via HTTPS, although the connection was marked as "Not Secure."
-
-
-Commands Used:
-
-Installed openssl to generate the testing certificate:
-
-sudo apt install openssl
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt
-
-Configured Apache to use the testing certificate:
-
-sudo nano /etc/apache2/sites-available/default-ssl.conf
-
-Updated the file to include:
-
-SSLEngine on
-SSLCertificateFile      /etc/ssl/certs/apache-selfsigned.crt
-SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
-
-Enabled SSL on Apache:
-
-sudo a2enmod ssl
-sudo a2ensite default-ssl.conf
-sudo systemctl reload apache2
-
-Verified HTTPS accessibility:
-
-https://<EC2_PUBLIC_IP>/second-semester-project/
-
-Outcome: While the connection was functional via HTTPS, it was marked as "Not Secure" due to the self-signed certificate.
-
-
-
-6. Version Control with Git
-
-Local Git Repository:
-
-Initialized a Git repository on the EC2 instance:
-
-cd /var/www/html/second-semester-project/
-git init
-
-Added files to the repository:
-
-git add .
-git commit -m "Initial commit for second semester project"
-
-
-GitHub Repository:
-
-Created a new repository on GitHub for the project.
-
-Connected the local repository to the remote GitHub repository using SSH:
-
-git remote add origin git@github.com:<YourUsername>/<RepositoryName>.git
-git push -u origin main
-
-
-
-7. Final Verification
-
-Website Access: Verified that the website is accessible via the EC2 public IP or public DNS over HTTP and HTTPS.
-
-GitHub Repository: Ensured that all files are pushed and available for review.
-
-
+**Project Documentation**
 
 ---
 
-Deliverables
+### 1. Project Details
 
-Public IP Address: [INSERT_PUBLIC_IP_HERE]
+**Project Name:**
+Building a Start-up Web Application Prototype  
 
-GitHub Repository URL: [INSERT_GITHUB_REPO_URL_HERE]
+**Subtitle:**
+Innovating the Cloud, Securing the Future  
 
-Directory Path on Server: /var/www/html/second-semester-project/
-
-
+**Project Overview:**
+This project showcases the process of building a functional prototype for a start-up web application. The objective is to demonstrate technical expertise in cloud infrastructure, server provisioning, web development, and server security.  
+By setting up a secure and accessible landing page, this project highlights key technical skills essential for cloud engineering, server development, and DevSecOps roles. The core focus is to provision, configure, and secure a Linux-based web server on AWS, while also creating a user-friendly responsive landing page. This page serves as a visual representation of the start-up's potential, designed to impress investors with technical proficiency and creativity.  
 
 ---
 
-Useful Commands
+### 2. Local Development
 
-Restart Apache:
+**Files Created:**
+1. **index.html**
+   - Purpose: Landing page
+   - Associated CSS File: index.css
 
-sudo systemctl restart apache2
+2. **about-project.html**
+   - Purpose: Page detailing the project
+   - Associated CSS File: about-project.css
 
-Check Apache Status:
+3. **about-me.html**
+   - Purpose: Page providing information about the author
+   - Associated CSS File: about-me.css
 
-sudo systemctl status apache2
+**Development Tools and Environments:**
+- **Code Editor:** Visual Studio Code (VS Code)
+- **Testing Environment:**
+  - Virtual machine set up using Vagrant
+  - Local server configured for development and testing
+- **Cloud Environment:** AWS EC2 instance for deployment and further testing
 
-Firewall Rules:
+---
 
-sudo ufw allow 'Apache Full'
+### 3. Server Configuration
 
+**Local Server Configuration:**
+- **Software Used:** Vagrant
+- **Operating System:** Ubuntu Server
+- **Directory Structure:** Project files stored in `/var/www/second_semester_project/`
+- Tested locally before deployment to the AWS EC2 instance.
 
+**Remote Server Configuration:**
+- **Instance Type:** t2.micro
+- **Operating System:** Linux (Ubuntu)
 
+**EC2 Instance Configuration Steps:**
+1. **Launch EC2 Instance:**
+   - Configured using AWS Management Console.
+   - Selected t2.micro instance with Ubuntu as the operating system.
+2. **Networking Configuration:**
+   - Configured a security group to allow HTTP (port 80) and SSH (port 22) access.
+3. **Set Up the Apache Web Server:**
+   - Installed Apache using the command:
+     ```bash
+     sudo apt install apache2
+     ```
+   - Verified the installation by accessing the instance's public IP address in a browser.
+4. **Project Directory on EC2:**
+   - Files were stored in `/var/www/second_semester_project/` on the EC2 instance.
+   - Ensured proper ownership and permissions for the Apache web server.
 
-Acknowledgments
+---
 
-Special thanks to the AltSchool Cloud Engineering program for providing the resources and guidance to execute this project successfully.
+### 4. File Transfer
 
+**Method Used for File Transfer:**
+- **Tool:** Secure Copy Protocol (SCP)
+- **Command Used:**
+  ```bash
+  scp -i ~/path/to/key/oldschool.pem /etc/apache2/sites-available/oldschoolproject2.com ubuntu@35.179.10.104:/home/ubuntu
+  ```
+
+**File Placement on Remote Server:**
+- **Initial Destination Directory:** Files were initially placed in `/home/ubuntu` on the remote server.
+- **Final Destination Directory:** Files were moved from `/home/ubuntu` to `/var/www/` on the remote server for proper hosting by the Apache web server.
+
+---
+
+### 5. Networking Configuration
+
+**Public Access Configuration:**
+- **Method Used:** Configured via AWS Management Console, specifically through the Security Group settings.
+- **Security Group Configuration:**
+  - Allowed Port 22 for SSH access.
+  - Allowed Port 80 for HTTP access.
+  - Allowed Port 443 for HTTPS access.
+  - Set access permissions to Anywhere (0.0.0.0/0) for each of these ports.
+
+**Port Details:**
+- **Port 22:** Enabled for SSH connections.
+- **Port 80:** Enabled for HTTP traffic.
+- **Port 443:** Enabled for HTTPS traffic.
+
+**Verification of Public Access:**
+- **Method:** Verified by accessing the website via the public IP address: `35.179.104.90`.
+- Successfully accessed the hosted website to confirm proper network configuration.
+
+---
+
+### 6. HTTPS/SSL Setup
+
+**Type of SSL Used:**
+- A self-signed certificate was used for testing.
+
+**Commands Used:**
+- Generated a self-signed certificate and configured it in the web server’s configuration file.
+- Set up the file paths for the key and certificate.
+
+**Outcome:**
+- HTTPS worked successfully but was marked "Not Secure," as expected with a self-signed certificate.
+
+---
+
+### 7. Version Control
+
+**Local Git Repository:**
+- Initialized a Git repository in `/var/www/second_semester_project/`.
+- Commands Used:
+  ```bash
+  git init
+  git add .
+  git commit -m "Initial commit"
+  ```
+
+**GitHub Repository:**
+- **Repository URL:** https://github.com/oldschool-project2
+- **Steps:**
+  - Set up a new repository on GitHub.
+  - Generated an SSH key pair on the EC2 instance.
+  - Added the public key to the GitHub account for secure access.
+  - Pushed the local repository to GitHub using:
+    ```bash
+    git remote add origin git@github.com:oldschool-project2.git
+    git push -u origin main
+    ```
+
+---
+
+### 8. Challenges and Solutions
+
+**Challenges:**
+1. Difficulty using Let's Encrypt free SSL certificates due to the lack of a valid domain name.
+2. Financial constraints prevented purchasing a domain name.
+
+**Solutions:**
+- Used a self-signed certificate for testing and configured the server to make HTTPS requests.
+- Although the connection was marked "Not Secure," this approach allowed HTTPS functionality during testing.
+
+---
+
+### 9. Final Deliverables
+
+**Public IP Address:** `35.179.104.90`
+
+**GitHub Repository URL:** https://github.com/oldschool-project2
+
+---
+
+### 10. Acknowledgments
+
+Special thanks to AltSchool’s Cloud Engineering program for providing the resources and guidance to execute this project successfully. Appreciation also goes to my teammates, cycle members, and instructor for their invaluable support throughout the project.
 
