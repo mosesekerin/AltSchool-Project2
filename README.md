@@ -23,13 +23,13 @@ By setting up a secure and accessible landing page, this project highlights key 
    - Purpose: Landing page
    - Associated CSS File: index.css
 
-2. **about-project.html**
+2. **About-project.html**
    - Purpose: Page detailing the project
-   - Associated CSS File: about-project.css
+   - Associated CSS File: About-project.css
 
-3. **about-me.html**
+3. **About-Me.html**
    - Purpose: Page providing information about the author
-   - Associated CSS File: about-me.css
+   - Associated CSS File: About-Me.css
 
 **Development Tools and Environments:**
 - **Code Editor:** Visual Studio Code (VS Code)
@@ -45,7 +45,7 @@ By setting up a secure and accessible landing page, this project highlights key 
 **Local Server Configuration:**
 - **Software Used:** Vagrant
 - **Operating System:** Ubuntu Server
-- **Directory Structure:** Project files stored in `/var/www/second_semester_project/`
+- **Directory Structure:** Project files stored in `/var/www/2nd-Semester-Project/`
 - Tested locally before deployment to the AWS EC2 instance.
 
 **Remote Server Configuration:**
@@ -65,7 +65,7 @@ By setting up a secure and accessible landing page, this project highlights key 
      ```
    - Verified the installation by accessing the instance's public IP address in a browser.
 4. **Project Directory on EC2:**
-   - Files were stored in `/var/www/second_semester_project/` on the EC2 instance.
+   - Files were stored in `/var/www/2nd-Semester-Project/` on the EC2 instance.
    - Ensured proper ownership and permissions for the Apache web server.
 
 ---
@@ -76,7 +76,7 @@ By setting up a secure and accessible landing page, this project highlights key 
 - **Tool:** Secure Copy Protocol (SCP)
 - **Command Used:**
   ```bash
-  scp -i ~/path/to/key/oldschool.pem /etc/apache2/sites-available/oldschoolproject2.com ubuntu@35.179.10.104:/home/ubuntu
+  scp -i ~/.ssh/AltSchool.pem -r /var/www/1st-Semester-Project /var/www/2nd-Semester-Project ubuntu@35.179.104.90:/home/ubuntu/
   ```
 
 **File Placement on Remote Server:**
@@ -123,7 +123,7 @@ By setting up a secure and accessible landing page, this project highlights key 
 ### 7. Version Control
 
 **Local Git Repository:**
-- Initialized a Git repository in `/var/www/second_semester_project/`.
+- Initialized a Git repository in `/var/www/2nd-Semester-Project/`.
 - Commands Used:
   ```bash
   git init
@@ -132,14 +132,14 @@ By setting up a secure and accessible landing page, this project highlights key 
   ```
 
 **GitHub Repository:**
-- **Repository URL:** https://github.com/oldschool-project2
+- **Repository URL:** https://github.com/AltSchool-Project2
 - **Steps:**
   - Set up a new repository on GitHub.
   - Generated an SSH key pair on the EC2 instance.
   - Added the public key to the GitHub account for secure access.
   - Pushed the local repository to GitHub using:
     ```bash
-    git remote add origin git@github.com:oldschool-project2.git
+     git remote add origin git@github.com:mosesekerin/AltSchool-Project2.git
     git push -u origin main
     ```
 
@@ -161,11 +161,11 @@ By setting up a secure and accessible landing page, this project highlights key 
 
 **Public IP Address:** `35.179.104.90`
 
-**GitHub Repository URL:** https://github.com/oldschool-project2
+**GitHub Repository URL:** https://github.com/mosesekerin/AltSchool-Project2/
 
 ---
 
 ### 10. Acknowledgments
 
-Special thanks to AltSchool’s Cloud Engineering program for providing the resources and guidance to execute this project successfully. Appreciation also goes to my teammates, cycle members, and instructor for their invaluable support throughout the project.
+Special thanks to AltSchool’s Cloud Engineering program for providing the resources and guidance to execute this project successfully. Appreciation also goes to my circle lead, and my instructor for their invaluable support throughout the project.
 
